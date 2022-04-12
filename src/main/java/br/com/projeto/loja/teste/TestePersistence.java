@@ -7,10 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.projeto.dao.CategoriasDao;
+import br.com.projeto.dao.ProdutoDao;
 import br.com.projeto.loja.modelo.Categoria;
-import br.com.projeto.loja.modelo.CategoriasDao;
 import br.com.projeto.loja.modelo.Produto;
-import br.com.projeto.loja.modelo.ProdutoDao;
 import br.com.projeto.loja.util.JPAUtil;
 
 public class TestePersistence {
@@ -19,22 +19,25 @@ public class TestePersistence {
 		
 		
 		
-		//cadastrarProduto();
+		cadastrarProduto();
 		EntityManager em = JPAUtil.getEntityManager();
         ProdutoDao dao = new ProdutoDao(em);
-        Produto produto = dao.buscaPorId(1l);
-        System.out.println(produto.getNome());
-        List<Produto> todos = dao.mostraTodos();
-        todos.forEach(p -> System.out.println(p.getNome()));
+//        Produto produto = dao.buscaPorId(1l);
+//        System.out.println(produto.getNome());
+//        List<Produto> todos = dao.mostraTodos();
+//        todos.forEach(p -> System.out.println(p.getNome()));
+//        System.out.println("----------------------------------");
+//        List<Produto> procuraPrNome = dao.procuraPrNome("TV-dobravel");
+//        procuraPrNome.forEach(p->System.out.println());
+//        System.out.println("----------------------------------");
+//        List<Produto> procuraPorCategoria = dao.procuraPorCategoria("CELULARES");
+//        procuraPorCategoria.forEach(p->System.out.println(p.getNome()));
+//        System.out.println("----------------------------------");
+//        BigDecimal preco = dao.procuraPrecoProdutoComNome("tv");
+//        System.out.println(preco);
         System.out.println("----------------------------------");
-        List<Produto> procuraPrNome = dao.procuraPrNome("TV-dobravel");
-        procuraPrNome.forEach(p->System.out.println());
-        System.out.println("----------------------------------");
-        List<Produto> procuraPorCategoria = dao.procuraPorCategoria("CELULARES");
-        procuraPorCategoria.forEach(p->System.out.println(p.getNome()));
-        System.out.println("----------------------------------");
-        BigDecimal preco = dao.procuraPrecoProdutoComNome("tv");
-        System.out.println(preco);
+        List<Produto> criteria = dao.buscarPorParametrosCriteria("tv", null, null);
+        criteria.forEach(s -> System.out.println(s.getNome()));
 	}
 
 	private static void cadastrarProduto() {
@@ -47,7 +50,7 @@ public class TestePersistence {
 		CategoriasDao categoriasDao = new CategoriasDao(em);
 		ProdutoDao dao = new ProdutoDao(em);
 		
-		//pegar a transação.
+		//pegar a transação. so asim é possível fazer a persistencia.sem esquecer de commitar
 		em.getTransaction().begin();
 		categoriasDao.cadastrar(celulares);
 		dao.cadastrar(celular);

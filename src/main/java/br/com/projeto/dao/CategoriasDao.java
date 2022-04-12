@@ -1,6 +1,8 @@
-package br.com.projeto.loja.modelo;
+package br.com.projeto.dao;
 
 import javax.persistence.EntityManager;
+
+import br.com.projeto.loja.modelo.Categoria;
 
 public class CategoriasDao {
 
